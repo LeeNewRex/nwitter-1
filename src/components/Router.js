@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
-import Random from "routes/random"
+import Random from "routes/mainchat"
 import Navigation from "components/Navigation";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
@@ -29,7 +29,7 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
             <Route exact path="/random_chat">
-
+              <Random  userObj={userObj}/>
             </Route>
           </div>
         ) : (

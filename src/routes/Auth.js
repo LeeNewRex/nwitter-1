@@ -1,10 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTwitter,
   faGoogle,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import { faUser, faSnowflake, faComments } from "@fortawesome/free-solid-svg-icons";
 import { authService, firebaseInstance } from "fbase";
 import AuthForm from "components/AuthForm";
 
@@ -24,8 +24,8 @@ const Auth = () => {
   return (
     <div className="authContainer">
       <FontAwesomeIcon
-        icon={faTwitter}
-        color={"#04AAFF"}
+        icon={faSnowflake}
+        color={"#c404ff"}
         size="3x"
         style={{ marginBottom: 30 }}
       />
@@ -41,4 +41,5 @@ const Auth = () => {
     </div>
   );
 };
+
 export default Auth;

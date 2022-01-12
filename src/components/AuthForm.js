@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { authService } from "fbase";
+import { authService, firebasedb } from "fbase";
+import md5 from 'md5';
+
 
 const inputStyles = {};
 
@@ -8,6 +10,8 @@ const AuthForm = () => {
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState("");
+  
+  
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -20,17 +24,33 @@ const AuthForm = () => {
   };
   const onSubmit = async (event) => {
     event.preventDefault();
+    
     try {
       let data;
+      
+
       if (newAccount) {
         data = await authService.createUserWithEmailAndPassword(
           email,
           password
         );
+        
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
+        
       }
-      console.log(data);
+      console.log('data', data);
+
+    await data.user.updateProfile({
+      displayName: data.name,
+      photoURL: `http://gravatar.com/avatar/${md5(data.user.email)}?d=identicon`
+    })
+
+    await firebasedb.ref("users").child(data.user.uid).set({
+      name: data.user.displayName,
+      image: data.user.photoURL
+    })
+
     } catch (error) {
       setError(error.message);
     }

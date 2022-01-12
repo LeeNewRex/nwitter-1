@@ -277,3 +277,17 @@ form {
   font-size: 12px;
   text-decoration: underline;
 }
+
+/* Chat Form  */
+
+.message-form-button {
+  background: #c404ff;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 10px;
+}
