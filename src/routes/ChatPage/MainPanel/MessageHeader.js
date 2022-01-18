@@ -6,17 +6,21 @@ import Image from 'react-bootstrap/Image'
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { FaLock } from 'react-icons/fa'
+import { FaLock, FaLockOpen } from 'react-icons/fa'
 import { MdFavorite } from 'react-icons/md'
 import { AiOutlineSearch } from 'react-icons/ai'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
+import { useSelector } from 'react-redux'
 
-function MessageHeader() {
+function MessageHeader({handleSearchChange}) {
+    const chatRoom = useSelector(state => state.chatRoom.currentChatRoom)
+    const isPrivateChatRoom = useSelector(state => state.chatRoom.isPrivateChatRoom)
+
     return (
         <div style={{
             width: '100%',
-            height: '155px',
+            height: '165px',
             border: '.2rem solid #ececec',
             borderRadius: '4px',
             pasdding: '1rem',
@@ -24,7 +28,16 @@ function MessageHeader() {
         }}>
             <Container>
                 <Row>
-                    <Col><h2 style={{ fontSize: '18px', marginBottom: '5px', marginTop:'5px' }}><FaLock /> ChatRoomName <MdFavorite /></h2></Col>
+                    <Col><h2 style={{ fontSize: '18px', marginBottom: '5px', marginTop:'5px', marginRight:'3px' }}>
+                        {isPrivateChatRoom ?
+                            <FaLock style={{ marginBottom: '10px'}} />
+                            :
+                            <FaLockOpen style={{ marginBottom: '10px'}} />
+                        }
+
+                        
+                        {chatRoom && chatRoom.name}
+                    <MdFavorite /></h2></Col>
                 </Row>
                 <Row>
                     <Col>
@@ -44,7 +57,8 @@ function MessageHeader() {
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
                             <FormControl 
-                                placeholder="Search Messages"
+                                onChange={handleSearchChange}
+                                placeholder="Search Messages" 
                                 aria-label="Search"
                                 aria-describedby="basic-addon1"
                             />

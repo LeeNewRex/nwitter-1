@@ -6,10 +6,11 @@ import Image from 'react-bootstrap/Image';
 import { authService, storageService } from 'fbase'
 import { useHistory } from "react-router-dom";
 import mime from 'mime-types';
-import { useDispatch, setSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setPhotoURL } from '../../../redux/action/user_action';
 
-function UserPanel({userObj}) {
+function UserPanel() {
+    const user = useSelector(state => state.user.currentUser)
     const history = useHistory();
     const dispatch = useDispatch();
     const inputOpenImageRef = useRef();
@@ -32,7 +33,7 @@ function UserPanel({userObj}) {
 
             //스토리지에 파일 저장하기
             let uploadTaskSnapshot = await storageService.ref()
-                .child(`user_image/${userObj.uid}`)
+                .child(`user_image/${user.uid}`)
                 .put(file, metadata)
 
                 let downloadURL = await uploadTaskSnapshot.ref.getDownloadURL();
@@ -61,7 +62,7 @@ function UserPanel({userObj}) {
             </h3>
 
             <div style={{ display:'flex', marginBottom: '1rem'}}>
-            <Image src={userObj && userObj.photoURL}
+            <Image src={user && user.photoURL}
             style={{ width: '30p', height: '30px', marginBottom:'3px'}}
             roundedCircle />
 
@@ -69,7 +70,7 @@ function UserPanel({userObj}) {
                 <Dropdown.Toggle 
                 style={{ background:'transparent', border:'0px'}}
                 id="dropdown-basic">
-                    {userObj.displayName}
+                    {user.displayName}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

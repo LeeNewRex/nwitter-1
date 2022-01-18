@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
 import Profile from "routes/Profile";
-import Random from "routes/mainchat"
+import Random from "routes/Mainchat"
 import Navigation from "components/Navigation";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {

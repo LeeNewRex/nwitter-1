@@ -11,6 +11,7 @@ function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   let dispatch = useDispatch();
+  const isLoading = useSelector(state => state.user.isLoading);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -38,19 +39,29 @@ function App() {
       updateProfile: (args) => user.updateProfile(args),
     });
   };
-  return (
-    <>
-      {init ? (
-        <AppRouter
-          refreshUser={refreshUser}
-          isLoggedIn={Boolean(userObj)}
-          userObj={userObj}
-        />
-      ) : (
-        "Initializing..."
-      )}
-    </>
-  );
+
+  if(isLoading){
+    return (
+      <div>
+        ...loading
+      </div>
+    )
+  } else {
+    return (
+      <>
+        {init ? (
+          <AppRouter
+            refreshUser={refreshUser}
+            isLoggedIn={Boolean(userObj)}
+            userObj={userObj}
+          />
+        ) : (
+          "Initializing..."
+        )}
+      </>
+    );
+  }
+  
 }
 
 export default App;

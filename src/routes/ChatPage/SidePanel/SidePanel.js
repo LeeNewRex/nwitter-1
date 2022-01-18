@@ -8,7 +8,7 @@ function SidePanel({userObj}) {
     return (
         <div
             style={{
-                background:"#7B83EB",
+                background:"gray",
                 padding:'0.5rem',
                 minHeight:'100vh',
                 color:'white',
